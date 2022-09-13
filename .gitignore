@@ -3,3 +3,10 @@ build/**
 bin/**
 
 dotprod
+
+*.o
+
+*.json
+
+matmul/bin/**
+matmul/build/**
