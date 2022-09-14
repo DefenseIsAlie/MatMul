@@ -1,5 +1,12 @@
 CFLAGS = -g -Wall -Werror -std=c++17 -pedantic -Wvla
 
+PAPI_INCLUDE_PATH=
+PAPI_LIB_PATH=
+
+ifeq ($(DEBUG),1)
+CFLAGS += -I$(PAPI_INCLUDE_PATH) -DPAPI -L$(PAPI_LIB_PATH) -lpapi
+endif
+
 entry: bin/matmul1 bin/matmul2 bin/matmul3
 
 bin/matmul1: src/matmul1.cpp build/input.o build/ijkmul.o
