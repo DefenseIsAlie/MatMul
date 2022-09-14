@@ -10,7 +10,7 @@ bin/matmul2: src/matmul2.cpp build/input.o build/kijmul.o
 
 bin/matmul3: src/matmul3.cpp build/input.o build/row_blocked_mul.o
 	bash bash/createbin.sh
-	g++ $(CFLAGS) -I./inc src/matmul1.cpp build/input.o build/ijkmul.o -o bin/matmul3
+	g++ $(CFLAGS) -I./inc src/matmul3.cpp build/input.o build/row_blocked_mul.o -o bin/matmul3
 
 build/input.o: src/input.cpp inc/input.hpp
 	bash bash/createbuild.sh

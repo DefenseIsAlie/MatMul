@@ -1,6 +1,6 @@
 #include <iostream>
 #include <sstream>
-#include <ctime>
+#include <chrono>
 #include "../inc/input.hpp"
 #include "../inc/ijkmul.hpp"
 
@@ -30,11 +30,13 @@ int main(int argc, char* argv[]){
     ijk::_initialize_matrix(dim, A);
     ijk::_initialize_matrix(dim, B);
 
-    time_t start = time(NULL);
+    std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
     ijk::_matmul(dim, A, B, C);
-    time_t end   = time(NULL);
+    std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+    
+    double mul_time = std::chrono::duration<double, std::milli>(end - start).count();
+    std::cout << "Time take for matmul1 is "<< mul_time << " ms" << std::endl;
 
-    std::cout << "Time taken is: " << end - start << " seconds" << std::endl;
 
     return 0;
 }

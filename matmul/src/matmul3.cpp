@@ -1,6 +1,6 @@
 #include <iostream>
 #include <sstream>
-#include <ctime>
+#include <chrono>
 #include "../inc/input.hpp"
 #include "../inc/row_blocked_mul.hpp"
 
@@ -31,11 +31,12 @@ int main(int argc, char* argv[]){
     row_block::_initialize_matrix(dim, B);
 
 
-    time_t start = time(NULL);
+    std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
     row_block::_matmul(dim, A, B, C);
-    time_t end   = time(NULL);
+    std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
 
-    std::cout << "Time taken is: " << end - start << " seconds" << std::endl;  
+    double mul_time = std::chrono::duration<double, std::milli>(end - start).count();
 
+    std::cout << "Time take for matmul3 is "<< mul_time << " ms" << std::endl;
     return 0;
 }
