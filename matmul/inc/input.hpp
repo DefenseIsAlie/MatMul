@@ -7,7 +7,7 @@ namespace diminput{
 
     int _commandline_input();
 
-    int _argv_input(char* args[]);
+    int _argv_input(char* args[], int indx);
 
 }
 

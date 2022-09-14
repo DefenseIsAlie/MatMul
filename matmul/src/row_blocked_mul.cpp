@@ -26,26 +26,30 @@ void row_block::_initialize_matrix(int dim, double** &mat){
 
 }
 
-inline double row_block::_saxpy(int dim, double &a, double* &X){
 
-    double ret = 0.;
+void row_block::_matmul(int dim,int block_size, double** &A, double** &B, double** &C){     
 
-    for (int j = 0; j < dim; j++)
-    {
-        ret+= a * X[j];
-    }
+    for (int i = 0; i < dim; i+=block_size){
 
-    return ret;
-}
+        for (int block = 0; block < block_size; block++){
+        // i+block gives the row we are working on
 
-void row_block::_matmul(int dim, double** &A, double** &B, double** &C){
+            for (int j = 0; j < dim; j++)
+            {
+                // Cij += RAi * CBj
+                double dotprod = 0.;
 
-    for (int i = 0; i < dim; i++){
-        double *Ci = C[i];
-        double *Ai = A[i];
-        for (int k = 0; k < dim; k++)
-        {   
-            Ci[k] += row_block::_saxpy(dim, Ai[k], B[k]);
+                for (int o = 0; o < dim; o++)
+                {
+                    dotprod += A[i+block][o]*B[o][j];
+                    
+                }
+
+                C[i+block][j] += dotprod;
+            }
+
         }
+
     }
+
 }

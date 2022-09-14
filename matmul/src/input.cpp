@@ -26,11 +26,11 @@ int diminput::_commandline_input(){
     return input;
 }
 
-int diminput::_argv_input(char* args[]){
+int diminput::_argv_input(char* args[], int indx){
     int input = -1;
 
     std::istringstream conv;
-    conv.str(args[1]);
+    conv.str(args[indx]);
 
     if (!(conv >> input))
     {   
