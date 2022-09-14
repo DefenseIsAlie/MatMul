@@ -90,10 +90,7 @@ int main(int argc, char* argv[]){
         retval = PAPI_stop(EventSet, values);
         if (retval != PAPI_OK) handle_error(retval);
     #endif
-    std::cout << C[5][5] << "\n";
-    std::cout << C[6][6] << "\n";
-    std::cout << C[10][10] << "\n";
-    std::cout << C[17][17] << "\n";
+    
     std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
     #ifdef PAPI
         float ratio = values[0]/(float)(values[1]);

@@ -1,7 +1,7 @@
-CFLAGS = -g -Wall -Werror -std=c++17 -pedantic -Wvla
+CFLAGS = -g -Wall -Werror -std=c++17 -pedantic -Wvla -march=native -O3
 
-PAPI_INCLUDE_PATH=/home/s200010021/papi_install/usr/local/include
-PAPI_LIB_PATH=/home/s200010021/papi_install/usr/local/lib
+PAPI_INCLUDE_PATH=/home/abhishekj/projects/papi_install/usr/local/include
+PAPI_LIB_PATH=/home/abhishekj/projects/papi_install/usr/local/lib
 
 ifeq ($(DEBUG),1)
 CFLAGS += -I$(PAPI_INCLUDE_PATH) -DPAPI 
