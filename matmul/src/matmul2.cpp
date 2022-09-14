@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include "../inc/input.hpp"
+#include "../inc/kijmul.hpp"
 
 int main(int argc, char* argv[]){
     int dim;
@@ -21,5 +22,14 @@ int main(int argc, char* argv[]){
         }
     }
     
+    double** A = kij::_create_matrix(dim);
+    double** B = kij::_create_matrix(dim);
+    double** C = kij::_create_matrix(dim);
+    
+    kij::_initialize_matrix(dim, A);
+    kij::_initialize_matrix(dim, B);
+
+    kij::_matmul(dim, A, B, C);
+
     return 0;
 }
