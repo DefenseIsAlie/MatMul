@@ -1,25 +1,26 @@
 CFLAGS = -g -Wall -Werror -std=c++17 -pedantic -Wvla
 
-PAPI_INCLUDE_PATH=
-PAPI_LIB_PATH=
+PAPI_INCLUDE_PATH=/home/s200010021/papi_install/usr/local/include
+PAPI_LIB_PATH=/home/s200010021/papi_install/usr/local/lib
 
 ifeq ($(DEBUG),1)
-CFLAGS += -I$(PAPI_INCLUDE_PATH) -DPAPI -L$(PAPI_LIB_PATH) -lpapi
+CFLAGS += -I$(PAPI_INCLUDE_PATH) -DPAPI 
+LDFLAGS =  -L$(PAPI_LIB_PATH) -lpapi
 endif
 
 entry: bin/matmul1 bin/matmul2 bin/matmul3
 
 bin/matmul1: src/matmul1.cpp build/input.o build/ijkmul.o
 	bash bash/createbin.sh
-	g++ $(CFLAGS) -I./inc src/matmul1.cpp build/input.o build/ijkmul.o -o bin/matmul1
+	g++ $(CFLAGS) -I./inc src/matmul1.cpp build/input.o build/ijkmul.o -o bin/matmul1 $(LDFLAGS)
 
 bin/matmul2: src/matmul2.cpp build/input.o build/kijmul.o
 	bash bash/createbin.sh
-	g++ $(CFLAGS) -I./inc src/matmul2.cpp build/input.o build/kijmul.o -o bin/matmul2
+	g++ $(CFLAGS) -I./inc src/matmul2.cpp build/input.o build/kijmul.o -o bin/matmul2 $(LDFLAGS)
 
 bin/matmul3: src/matmul3.cpp build/input.o build/row_blocked_mul.o
 	bash bash/createbin.sh
-	g++ $(CFLAGS) -I./inc src/matmul3.cpp build/input.o build/row_blocked_mul.o -o bin/matmul3
+	g++ $(CFLAGS) -I./inc src/matmul3.cpp build/input.o build/row_blocked_mul.o -o bin/matmul3 $(LDFLAGS)
 
 build/input.o: src/input.cpp inc/input.hpp
 	bash bash/createbuild.sh

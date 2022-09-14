@@ -2,12 +2,15 @@
 #include<sstream>
 #include "../inc/input.hpp"
 
-int diminput::_commandline_input(){
+int diminput::_commandline_input(int block_flag){
     int input = -1;
     std::string input_str; 
     std::istringstream conv;
-
-    std::cout << "Enter the dimension of matrix in decimal: " << "\n";
+    if (block_flag){
+        std::cout << "Enter block size in decimal: \n";
+    } else {
+        std::cout << "Enter matrix dimension in decimal: \n";
+    }
                             // skips after space                        
     std::cin >> input_str; // Convert the input string to stringstream
     conv.str(input_str);
@@ -25,6 +28,8 @@ int diminput::_commandline_input(){
 
     return input;
 }
+
+
 
 int diminput::_argv_input(char* args[], int indx){
     int input = -1;
