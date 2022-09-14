@@ -1,4 +1,4 @@
-CFLAGS = -g -Wall -Werror -lm -std=c++17 -pedantic -Wvla -march=native 
+CFLAGS = -g -Wall -Werror -std=c++17 -pedantic -Wvla -march=native -O3
 
 bin/matmul1: src/matmul1.cpp build/input.o build/ijkmul.o
 	bash bash/createbin.sh

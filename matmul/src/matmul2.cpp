@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <ctime>
 #include "../inc/input.hpp"
 #include "../inc/kijmul.hpp"
 
@@ -29,7 +30,10 @@ int main(int argc, char* argv[]){
     kij::_initialize_matrix(dim, A);
     kij::_initialize_matrix(dim, B);
 
+    time_t start = time(NULL);
     kij::_matmul(dim, A, B, C);
+    time_t end   = time(NULL);
 
+    std::cout << "Time taken is: " << end - start << " seconds" << std::endl;
     return 0;
 }
