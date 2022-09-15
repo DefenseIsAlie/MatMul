@@ -3,6 +3,7 @@
 #include <chrono>
 #include "../inc/input.hpp"
 #include "../inc/ijkmul.hpp"
+#include "test.hpp"
 
 
 #ifdef PAPI
@@ -101,6 +102,7 @@ int main(int argc, char* argv[]){
     double mul_time = std::chrono::duration<double, std::milli>(end - start).count();
     std::cout << "Time take for matmul1 is "<< mul_time << " ms" << std::endl;
 
+    check(dim, C);
 
     return 0;
 }

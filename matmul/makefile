@@ -10,15 +10,15 @@ endif
 
 entry: bin/matmul1 bin/matmul2 bin/matmul3
 
-bin/matmul1: src/matmul1.cpp build/input.o build/ijkmul.o
+bin/matmul1: src/matmul1.cpp build/input.o build/ijkmul.o build/test.o
 	bash bash/createbin.sh
 	g++ $(CFLAGS) -I./inc $^ -o $@ $(LDFLAGS)
 
-bin/matmul2: src/matmul2.cpp build/input.o build/kijmul.o
+bin/matmul2: src/matmul2.cpp build/input.o build/kijmul.o build/test.o
 	bash bash/createbin.sh
 	g++ $(CFLAGS) -I./inc $^ -o $@ $(LDFLAGS)
 
-bin/matmul3: src/matmul3.cpp build/input.o build/row_blocked_mul.o
+bin/matmul3: src/matmul3.cpp build/input.o build/row_blocked_mul.o build/test.o
 	bash bash/createbin.sh
 	g++ $(CFLAGS) -I./inc $^ -o $@ $(LDFLAGS)
 
@@ -31,6 +31,10 @@ build/ijkmul.o: src/ijkmul.cpp inc/ijkmul.hpp
 	g++ $(CFLAGS) -I./inc $< -c -o $@
 
 build/kijmul.o: src/kijmul.cpp inc/kijmul.hpp
+	bash bash/createbuild.sh
+	g++ $(CFLAGS) -I./inc $< -c -o $@
+
+build/test.o: src/test.cpp inc/test.hpp
 	bash bash/createbuild.sh
 	g++ $(CFLAGS) -I./inc $< -c -o $@
 

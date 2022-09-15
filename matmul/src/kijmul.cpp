@@ -18,7 +18,7 @@ void kij::_initialize_matrix(int dim, double** &mat){
         
         for (int j =0; j<dim; j++){
 
-            mat[i][j] = i+j+1;
+            mat[i][j] = 1;
 
         }
 
