@@ -1,4 +1,4 @@
-CFLAGS = -g -Wall -Werror -std=c++17 -pedantic -Wvla -march=native -O3
+CFLAGS = -g -Wall -Werror -std=c++11 -Wvla -O3
 
 PAPI_INCLUDE_PATH=/home/abhishekj/projects/papi_install/usr/local/include
 PAPI_LIB_PATH=/home/abhishekj/projects/papi_install/usr/local/lib
