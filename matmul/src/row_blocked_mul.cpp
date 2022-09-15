@@ -27,26 +27,21 @@ void row_block::_initialize_matrix(int dim, double** &mat){
 }
 
 
-void row_block::_matmul(int dim,int block_size, double** &A, double** &B, double** &C){     
+void row_block::_matmul(int dim,int block_size, double* &a, double* &b, double* &c){ 
 
-    for (int block = 0; block < dim; block+=block_size){
+for(int blk = 0; blk < block_size; blk++){
 
-        // Read Ci and Ai into fast memory
+    for (int element = 0; element < dim; element++){
 
-        for (int  element = 0; element < dim; element++){
+      for(int blk_row = 0; blk_row < dim/block_size; blk_row++){
+        
+        for(int col = 0; col < dim; col++){
 
-            for (int block_row = 0; block_row < block_size; block_row++){
-
-                for (int dot = 0; dot < dim; dot++){
-
-                    C[block+block_row][element] += A[block+block_row][element] * B[dot][element];
-                }
-
-                
-            }
-            
+          int blocked_index_row = blk*(dim/block_size)*dim + blk_row*dim + col;
+          int blocked_index_col = blk_row + element*dim + blk*(dim/block_size);
+          c[blocked_index_row] = c[blocked_index_row] + a[blocked_index_col] * b[(element*dim) + col];
         }
-    
+      }
     }
-
+  }
 }

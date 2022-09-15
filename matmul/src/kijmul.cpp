@@ -27,7 +27,7 @@ void kij::_initialize_matrix(int dim, double** &mat){
 }
 
 
-void kij::_matmul(int dim, double** &A, double** &B, double** &C){
+void kij::_matmul(int dim, double* &A, double* &B, double* &C){
 
     for (int k = 0; k < dim; k++)
     {
@@ -35,7 +35,7 @@ void kij::_matmul(int dim, double** &A, double** &B, double** &C){
         {
             for (int j = 0; j < dim; j++)
             {
-                C[i][j] = C[i][j] + A[i][k] * B[k][j];
+                C[i*dim + j] += A[k*dim + i] * B[k*dim +j];
             }
                
         }

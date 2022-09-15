@@ -3,6 +3,7 @@
 #include <chrono>
 #include "../inc/input.hpp"
 #include "../inc/ijkmul.hpp"
+#include "../inc/utils.hpp"
 #include "test.hpp"
 
 
@@ -81,12 +82,16 @@ int main(int argc, char* argv[]){
     ijk::_initialize_matrix(dim, A);
     ijk::_initialize_matrix(dim, B);
 
+    double* a = to_1d(A,dim,1);
+    double* b = to_1d(B,dim,0);
+    double* c = to_1d(C,dim,1);
+
     std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
     #ifdef PAPI
         retval = PAPI_start(EventSet);
         if (retval != PAPI_OK) handle_error(retval);
     #endif
-    ijk::_matmul(dim, A, B, C);
+    ijk::_matmul(dim, a, b, c);
     #ifdef PAPI
         retval = PAPI_stop(EventSet, values);
         if (retval != PAPI_OK) handle_error(retval);
@@ -101,6 +106,8 @@ int main(int argc, char* argv[]){
     
     double mul_time = std::chrono::duration<double, std::milli>(end - start).count();
     std::cout << "Time take for matmul1 is "<< mul_time << " ms" << std::endl;
+
+    C = to_2d(c, dim, 1);
 
     check(dim, C);
 

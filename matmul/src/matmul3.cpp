@@ -4,6 +4,7 @@
 #include "../inc/input.hpp"
 #include "../inc/row_blocked_mul.hpp"
 #include "test.hpp"
+#include "utils.hpp"
 
 #ifdef PAPI
 #include "papi.h"
@@ -91,21 +92,28 @@ int main(int argc, char* argv[]){
 	if (dim%blk_size !=0 || dim<blk_size || dim < 0 || blk_size < 0){
 
 		std::cout<< "dim%blk_size == 0 and dim<blk_size and dim > 0 and blk_size > 0" << std::endl;
+        return 0;
 
 	}
 
     double** A = row_block::_create_matrix(dim);
     double** B = row_block::_create_matrix(dim);
     double** C = row_block::_create_matrix(dim);
-    
+
+
     row_block::_initialize_matrix(dim, A);
     row_block::_initialize_matrix(dim, B);
+    double* a = to_1d( A, dim, 0);
+    double* b = to_1d(B, dim, 1);
+    double* c = to_1d(C, dim, 1);
+
     std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+
     #ifdef PAPI
 	    retval = PAPI_start(EventSet);
 	    if (retval != PAPI_OK) handle_error(retval);
     #endif
-	row_block::_matmul(dim, blk_size, A, B, C);
+	row_block::_matmul(dim, blk_size, a, b, c);
     #ifdef PAPI
         retval = PAPI_stop(EventSet, values);
         if (retval != PAPI_OK) handle_error(retval);
@@ -126,7 +134,7 @@ int main(int argc, char* argv[]){
     double mul_time = std::chrono::duration<double, std::milli>(end - start).count();
 
     std::cout << "Time take for matmul3 is "<< mul_time << " ms" << std::endl;
-
+    C = to_2d(c, dim, 1);
     check(dim, C);
 
     return 0;

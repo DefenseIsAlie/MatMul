@@ -27,7 +27,7 @@ void ijk::_initialize_matrix(int dim, double** &mat){
 }
 
 
-void ijk::_matmul(int dim, double** &A, double** &B, double** &C){
+void ijk::_matmul(int dim, double* &A, double* &B, double* &C){
 
     for (int i = 0; i < dim; i++)
     {
@@ -35,7 +35,7 @@ void ijk::_matmul(int dim, double** &A, double** &B, double** &C){
         {
             for (int k = 0; k < dim; k++)
             {
-                C[i][j] = C[i][j] + A[i][k] * B[k][j];
+                C[i*dim + j] += A[i*dim + k] * B[j*dim + k];
             }
                
         }

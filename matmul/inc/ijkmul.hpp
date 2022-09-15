@@ -3,7 +3,7 @@
 
 namespace ijk{
 
-    void _matmul(int dim, double** &A, double** &B, double** &C);
+    void _matmul(int dim, double* &A, double* &B, double* &C);
 
     double** _create_matrix(int dim); 
 

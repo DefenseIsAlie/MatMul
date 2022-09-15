@@ -3,6 +3,7 @@
 #include <chrono>
 #include "../inc/input.hpp"
 #include "../inc/kijmul.hpp"
+#include "../inc/utils.hpp"
 #include "test.hpp"
 
 #ifdef PAPI
@@ -76,16 +77,21 @@ int main(int argc, char* argv[]){
     kij::_initialize_matrix(dim, A);
     kij::_initialize_matrix(dim, B);
 
+    double* a = to_1d(A, dim, 0);
+    double* b = to_1d(B, dim, 1);
+    double* c = to_1d(C, dim, 1);
+
     std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
     #ifdef PAPI
 	    retval = PAPI_start(EventSet);
 	    if (retval != PAPI_OK) handle_error(retval);
     #endif
-    kij::_matmul(dim, A, B, C);
+    kij::_matmul(dim, a, b, c);
     #ifdef PAPI
         retval = PAPI_stop(EventSet, values);
         if (retval != PAPI_OK) handle_error(retval);
     #endif
+    
     
     
     std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
@@ -95,6 +101,7 @@ int main(int argc, char* argv[]){
         std::cout << "ratio" << ratio << std::endl;
 
     #endif
+    C = to_2d(c, dim, 1);
     double mul_time = std::chrono::duration<double, std::milli>(end - start).count();
     std::cout << "Time take for matmul2 is "<< mul_time << " ms" << std::endl;
 
