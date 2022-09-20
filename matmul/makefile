@@ -58,4 +58,7 @@ matmul2: bin/matmul2
 
 matmul3: bin/matmul3
 
-.PHONY: all matmul1 matmul2 matmul3 clean
+.PHONY: all matmul1 matmul2 matmul3 clean team
+
+team:
+	echo 'Josyula V N Taraka Abhishek 200010021@iitdh.ac.in'
