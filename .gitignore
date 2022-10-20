@@ -8,5 +8,9 @@ dotprod
 
 *.json
 
+.vscode/**
+
+eigen*/**
+
 matmul/bin/**
 matmul/build/**

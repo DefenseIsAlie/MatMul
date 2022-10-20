@@ -3,16 +3,19 @@ CFLAGS = -g -Wall -Werror -std=c++17 -pedantic -Wvla -O3 -march=native
 PAPI_INCLUDE_PATH=/home/s200010021/papi_install/usr/local/include
 PAPI_LIB_PATH=/home/s200010021/papi_install/usr/local/lib
 
+EIGEN = /home/s200010021/cs601pa1-DefenseIsAlie/eigen-3.4.0/install_dir/include/eigen3/
+EIGEN_FLAGS = -std=gnu++11 -O3 -march=native 
+
 ifeq ($(DEBUG),1)
 CFLAGS += -I$(PAPI_INCLUDE_PATH) -DPAPI 
 LDFLAGS =  -L$(PAPI_LIB_PATH) -lpapi
 endif
 
-entry: bin/matmul1 bin/matmul2 bin/matmul3
+entry: bin/matmul1 bin/matmul2 bin/matmul3 bin/eigen
 
 bin/matmul1: src/matmul1.cpp build/input.o build/ijkmul.o build/test.o build/utils.o
 	bash bash/createbin.sh
-	g++ $(CFLAGS) -I./inc $^ -o $@ $(LDFLAGS)
+	g++ $(CFLAGS) -I./inc $^ -o $@ $(LDFLAGS) 
 
 bin/matmul2: src/matmul2.cpp build/input.o build/kijmul.o build/test.o build/utils.o
 	bash bash/createbin.sh
@@ -21,6 +24,10 @@ bin/matmul2: src/matmul2.cpp build/input.o build/kijmul.o build/test.o build/uti
 bin/matmul3: src/matmul3.cpp build/input.o build/row_blocked_mul.o build/test.o  build/utils.o
 	bash bash/createbin.sh
 	g++ $(CFLAGS) -I./inc $^ -o $@ $(LDFLAGS)
+
+bin/eigen: src/eigen_mul.cpp
+	bash bash/createbin.sh
+	g++ -I$(EIGEN) $(EIGEN_FLAGS) $^ -o $@ 
 
 build/input.o: src/input.cpp inc/input.hpp
 	bash bash/createbuild.sh
@@ -50,7 +57,7 @@ clean:
 	rm -rf bin
 	rm -rf build
 
-all: bin/matmul1 bin/matmul2 bin/matmul3
+all: bin/matmul1 bin/matmul2 bin/matmul3 bin/eigen
 
 matmul1: bin/matmul1
 
@@ -58,7 +65,9 @@ matmul2: bin/matmul2
 
 matmul3: bin/matmul3
 
-.PHONY: all matmul1 matmul2 matmul3 clean team
+eigen: bin/eigen
+
+.PHONY: all matmul1 matmul2 matmul3 eigen clean team
 
 team:
 	echo 'Josyula V N Taraka Abhishek 200010021@iitdh.ac.in'
