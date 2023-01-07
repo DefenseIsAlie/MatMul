@@ -3,7 +3,7 @@ CFLAGS = -g -Wall -Werror -std=c++17 -pedantic -Wvla -O3 -march=native
 PAPI_INCLUDE_PATH=/home/s200010021/papi_install/usr/local/include
 PAPI_LIB_PATH=/home/s200010021/papi_install/usr/local/lib
 
-EIGEN = /home/s200010021/cs601pa1-DefenseIsAlie/eigen-3.4.0/install_dir/include/eigen3/
+EIGEN = ./
 EIGEN_FLAGS = -std=gnu++11 -O3 -march=native 
 
 ifeq ($(DEBUG),1)
@@ -65,7 +65,12 @@ matmul2: bin/matmul2
 
 matmul3: bin/matmul3
 
-eigen: bin/eigen
+eigen:
+	wget https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
+	tar -xf eigen-3.4.0.tar.gz
+	cp -r eigen-3.4.0/Eigen/  ./
+	rm eigen-3.4.0.tar.gz
+	rm -rf eigen-3.4.0/
 
 .PHONY: all matmul1 matmul2 matmul3 eigen clean team
 
