@@ -82,7 +82,11 @@ q = 2n^3/N*n^2 = 2*n/N which is better for high n
 
 # Comparing ijk matrix multiplication vs row-blocked matrix multiplication
 
+From the following plot we see that row blocked matmul is better than ijk loop
+![](images/plot.png)
 
+
+### For more info read PA1_report.pdf 
 
 
 ## Directory Structure
